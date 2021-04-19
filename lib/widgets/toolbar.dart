@@ -543,7 +543,7 @@ class _ImageButtonState extends State<ImageButton> {
     );
   }
 
-  Future<void> _handleImageButtonTap() async {
+  /*Future<void> _handleImageButtonTap() async {
     final index = widget.controller.selection.baseOffset;
     final length = widget.controller.selection.extentOffset - index;
 
@@ -573,8 +573,8 @@ class _ImageButtonState extends State<ImageButton> {
     }
 
     // Take first, because we don't allow picking multiple files.
-    /*final fileName = result.files.first.name!;
-    final file = File(fileName);*/
+    *//*final fileName = result.files.first.name!;
+    final file = File(fileName);*//*
 
     return widget.onImagePickCallback!(result.files.first);
   }
@@ -607,7 +607,7 @@ class _ImageButtonState extends State<ImageButton> {
 
     final file = PlatformFile(path: filePath);
     return widget.onImagePickCallback!(file);
-  }
+  }*/
 }
 
 /// Controls color styles.
