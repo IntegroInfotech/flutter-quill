@@ -17,7 +17,7 @@ import 'controller.dart';
 double iconSize = 18;
 double kToolbarHeight = iconSize * 2;
 
-typedef OnImagePickCallback = Future<String> Function(PlatformFile file);
+typedef OnImagePickCallback = Future<String> Function();
 typedef ImagePickImpl = Future<String?> Function(ImageSource source);
 
 class InsertEmbedButton extends StatelessWidget {
@@ -539,7 +539,7 @@ class _ImageButtonState extends State<ImageButton> {
       hoverElevation: 0,
       size: iconSize * 1.77,
       fillColor: theme.canvasColor,
-      onPressed: _handleImageButtonTap,
+      onPressed: widget.onImagePickCallback,
     );
   }
 
