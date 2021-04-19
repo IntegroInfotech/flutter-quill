@@ -17,7 +17,7 @@ import 'controller.dart';
 double iconSize = 18;
 double kToolbarHeight = iconSize * 2;
 
-typedef OnImagePickCallback = Future<String> Function(File file);
+typedef OnImagePickCallback = Future<String> Function(PlatformFile file);
 typedef ImagePickImpl = Future<String?> Function(ImageSource source);
 
 class InsertEmbedButton extends StatelessWidget {
@@ -573,10 +573,10 @@ class _ImageButtonState extends State<ImageButton> {
     }
 
     // Take first, because we don't allow picking multiple files.
-    final fileName = result.files.first.name!;
-    final file = File(fileName);
+    /*final fileName = result.files.first.name!;
+    final file = File(fileName);*/
 
-    return widget.onImagePickCallback!(file);
+    return widget.onImagePickCallback!(result.files.first);
   }
 
   Future<String?> _pickImage(ImageSource source) async {
@@ -585,7 +585,15 @@ class _ImageButtonState extends State<ImageButton> {
       return null;
     }
 
-    return widget.onImagePickCallback!(File(pickedFile.path));
+    final file = PlatformFile(
+      name: pickedFile.path.split("/").last,
+      path: pickedFile.path,
+      bytes: await pickedFile.readAsBytes(),
+      readStream: pickedFile.openRead(),
+      size: await pickedFile.openRead().length,
+    );
+
+    return widget.onImagePickCallback!(file);
   }
 
   Future<String?> _pickImageDesktop() async {
@@ -597,7 +605,7 @@ class _ImageButtonState extends State<ImageButton> {
     );
     if (filePath == null || filePath.isEmpty) return null;
 
-    final file = File(filePath);
+    final file = PlatformFile(path: filePath);
     return widget.onImagePickCallback!(file);
   }
 }
